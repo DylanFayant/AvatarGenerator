@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><manifest>
+  <library name="acc_head_U_bouclewb" version="0.1">
+    <assets>
+      <asset name="h_lay_he_4566_2_0" mimeType="image/png">
+        <param key="offset" value="17,21"/>
+      </asset>
+      <asset name="h_std_he_4566_7_0" mimeType="image/png">
+        <param key="offset" value="-16,62"/>
+      </asset>
+      <asset name="h_std_he_4566_3_0" mimeType="image/png">
+        <param key="offset" value="-16,63"/>
+      </asset>
+      <asset name="h_std_he_4566_2_0" mimeType="image/png">
+        <param key="offset" value="-18,62"/>
+      </asset>
+      <asset name="h_std_he_4566_1_0" mimeType="image/png">
+        <param key="offset" value="-24,62"/>
+      </asset>
+      <asset name="h_std_he_4566_0_0" mimeType="image/png">
+        <param key="offset" value="-36,60"/>
+      </asset>
+    </assets>
+  </library>
+</manifest>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?><manifest>
+  <library name="trousers_U_ntmo" version="0.1">
+    <assets>
+      <asset name="h_wlk_lg_9037_0_0" mimeType="image/png">
+        <param key="offset" value="-20,25"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_0_1" mimeType="image/png">
+        <param key="offset" value="-16,25"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_0_2" mimeType="image/png">
+        <param key="offset" value="-20,25"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_0_3" mimeType="image/png">
+        <param key="offset" value="-21,25"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_1_0" mimeType="image/png">
+        <param key="offset" value="-24,20"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_1_1" mimeType="image/png">
+        <param key="offset" value="-17,20"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_1_2" mimeType="image/png">
+        <param key="offset" value="-24,20"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_1_3" mimeType="image/png">
+        <param key="offset" value="-18,20"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_2_0" mimeType="image/png">
+        <param key="offset" value="-23,24"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_2_1" mimeType="image/png">
+        <param key="offset" value="-23,24"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_2_2" mimeType="image/png">
+        <param key="offset" value="-23,25"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_2_3" mimeType="image/png">
+        <param key="offset" value="-19,24"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_3_0" mimeType="image/png">
+        <param key="offset" value="-23,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_3_1" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_3_2" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_3_3" mimeType="image/png">
+        <param key="offset" value="-23,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_7_0" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_7_1" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_7_2" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_wlk_lg_9037_7_3" mimeType="image/png">
+        <param key="offset" value="-23,21"/>
+      </asset>
+      <asset name="h_std_lg_9037_0_0" mimeType="image/png">
+        <param key="offset" value="-20,25"/>
+      </asset>
+      <asset name="h_std_lg_9037_1_0" mimeType="image/png">
+        <param key="offset" value="-24,21"/>
+      </asset>
+      <asset name="h_std_lg_9037_2_0" mimeType="image/png">
+        <param key="offset" value="-22,24"/>
+      </asset>
+      <asset name="h_std_lg_9037_3_0" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_std_lg_9037_7_0" mimeType="image/png">
+        <param key="offset" value="-22,21"/>
+      </asset>
+      <asset name="h_sit_lg_9037_0_0" mimeType="image/png">
+        <param key="offset" value="-21,32"/>
+      </asset>
+      <asset name="h_sit_lg_9037_2_0" mimeType="image/png">
+        <param key="offset" value="-20,24"/>
+      </asset>
+      <asset name="h_lay_lg_9037_2_0" mimeType="image/png">
+        <param key="offset" value="-19,13"/>
+      </asset>
+    </assets>
+  </library>
+</manifest>
