@@ -20,7 +20,7 @@ define("LITE_RECOLOR_FUNCTION", false);
 // Use function fast processing at color subtraction.
 // processing speed improves, but there is little difference from the real color.
 
-define("PATH_RESOURCE", dirname(__FILE__) . "/resource/");
+define("PATH_RESOURCE", dirname(__FILE__) . "/output/");
 
 define('IMAGE_CANVAS_RESIZE_LEFT', 0);
 define('IMAGE_CANVAS_RESIZE_TOP', 1);
@@ -111,9 +111,6 @@ class AvatarImage
             "figuredata" => $this->getJSON(PATH_RESOURCE . "figuredata.json"),
             "partsets" => $this->getJSON(PATH_RESOURCE . "partsets.json"),
             "draworder" => $this->getJSON(PATH_RESOURCE . "draworder.json"),
-            //"animation"        => $this->getJSON(PATH_RESOURCE."animation.json"),
-            //"action"        => $this->getJSON(PATH_RESOURCE."action.json"),
-            //"geometry"        => $this->getJSON(PATH_RESOURCE."geometry.json"),
             "offset" => array(),
         );
 
@@ -630,9 +627,9 @@ class AvatarImage
             $ret[$type]['active'] = true;
             if ($addAttr) {
                 $partData = $partSetData[$type];
-                $ret[$setType]['remove'] = $partData['remove-set-type'];
-                $ret[$setType]['flip'] = $partData['flipped-set-type'];
-                $ret[$setType]['swim'] = $partData['swim'];
+                $ret[$type]['remove'] = $partData['remove-set-type'];
+                $ret[$type]['flip'] = $partData['flipped-set-type'];
+                $ret[$type]['swim'] = $partData['swim'];
             }
         }
         return $ret;
@@ -682,10 +679,6 @@ class AvatarImage
     }
     public function getPartResourcePosition($uniqueName, $resourceName, $width = 0)
     {
-        if (!isset($this->settings['offset'][$uniqueName])) {
-            $this->settings['offset'][$uniqueName] = $this->getJSON(PATH_RESOURCE . $uniqueName . "/offset.json");
-        }
-
         $ret = array();
         if (isset($this->settings['offset'][$uniqueName][$resourceName])) {
             $ret = $this->settings['offset'][$uniqueName][$resourceName];
@@ -696,14 +689,9 @@ class AvatarImage
         }
         return $ret;
     }
-    public function buildResourceName($action, $type, $partId, $direction, $frame, $uniqueName = false)
+    public function buildResourceName($action, $type, $partId, $direction, $frame)
     {
         $resourceName = "";
-
-        if ($uniqueName) {
-            $resourceName .= PATH_RESOURCE . $uniqueName . "/" . $uniqueName;
-            $resourceName .= "_";
-        }
 
         $resourceName .= "h"; //$this->isSmall ? "sh" : "h";
         $resourceName .= "_";
@@ -717,60 +705,59 @@ class AvatarImage
         $resourceName .= "_";
         $resourceName .= $frame;
 
-        if ($uniqueName) {
-            $resourceName .= ".png";
-        }
-
         return $resourceName;
     }
     public function getPartResource($uniqueName, $action, $type, $partId, $direction)
     {
+        if (!isset($this->settings['offset'][$uniqueName])) {
+            $dataJson = $this->getJSON(PATH_RESOURCE . "/clothes/". $uniqueName . ".json");
+            $this->settings['offset'][$uniqueName] = $dataJson["offsets"];
+            $this->settings['image'][$uniqueName] = $dataJson["images"];
+        }
+
         $frame = $this->getFrameNumber($type, $action, @(int) $this->frame[$action]);
         $isFlip = false;
 
         $resDirection = $direction;
 
-        $resourceName = PATH_RESOURCE . $uniqueName . "/" . $uniqueName;
-        $resourceName .= "_";
-        $resourceName .= $this->buildResourceName($action, $type, $partId, $resDirection, $frame);
-        $resourceName .= ".png";
+        $resourceName = $this->buildResourceName($action, $type, $partId, $resDirection, $frame);
 
-        if (!file_exists($resourceName) && $action == "std") {
-            $resourceName = $this->buildResourceName("spk", $type, $partId, $resDirection, $frame, $uniqueName);
+        if (!isset($this->settings['image'][$uniqueName][$resourceName]) && $action == "std") {
+            $resourceName = $this->buildResourceName("spk", $type, $partId, $resDirection, $frame);
         }
 
-        if (!file_exists($resourceName) && $action != "std") {
+        if (!isset($this->settings['image'][$uniqueName][$resourceName]) && $action != "std") {
             $action = "std";
-            $resourceName = $this->buildResourceName("std", $type, $partId, $resDirection, $frame, $uniqueName);
+            $resourceName = $this->buildResourceName("std", $type, $partId, $resDirection, $frame);
         }
 
-        if (!file_exists($resourceName)) {
+        if (!isset($this->settings['image'][$uniqueName][$resourceName])) {
             if ($direction > 3 && $direction < 7) {
                 $isFlip = false;
                 $flippedType = $this->settings['partsets']['partSet'][$type]['flipped-set-type'];
                 if ($flippedType != "") {
-                    $resourceName = $this->buildResourceName($action, $flippedType, $partId, $resDirection, $frame, $uniqueName);
+                    $resourceName = $this->buildResourceName($action, $flippedType, $partId, $resDirection, $frame);
                 }
 
-                if (!file_exists($resourceName) && $action == "std") {
-                    $resourceName = $this->buildResourceName("spk", $flippedType, $partId, $resDirection, $frame, $uniqueName);
+                if (!isset($this->settings['image'][$uniqueName][$resourceName]) && $action == "std") {
+                    $resourceName = $this->buildResourceName("spk", $flippedType, $partId, $resDirection, $frame);
                 }
 
-                if (!file_exists($resourceName)) {
+                if (!isset($this->settings['image'][$uniqueName][$resourceName])) {
                     $isFlip = true;
                     $direction = 6 - $direction;
-                    $resourceName = $this->buildResourceName($action, $type, $partId, $direction, $frame, $uniqueName);
+                    $resourceName = $this->buildResourceName($action, $type, $partId, $direction, $frame);
                 }
 
-                if (!file_exists($resourceName)) {
-                    $resourceName = $this->buildResourceName($action, $flippedType, $partId, $direction, $frame, $uniqueName);
+                if (!isset($this->settings['image'][$uniqueName][$resourceName])) {
+                    $resourceName = $this->buildResourceName($action, $flippedType, $partId, $direction, $frame);
                 }
 
-                if (!file_exists($resourceName) && $action == "std") {
-                    $resourceName = $this->buildResourceName("spk", $type, $partId, $direction, $frame, $uniqueName);
+                if (!isset($this->settings['image'][$uniqueName][$resourceName]) && $action == "std") {
+                    $resourceName = $this->buildResourceName("spk", $type, $partId, $direction, $frame);
                 }
 
-                if (!file_exists($resourceName)) {
+                if (!isset($this->settings['image'][$uniqueName][$resourceName])) {
                     return false;
                 }
 
@@ -780,7 +767,7 @@ class AvatarImage
 
         }
 
-        $resource = imageCreateFromPNG($resourceName);
+        $resource = imagecreatefromstring(base64_decode($this->settings['image'][$uniqueName][$resourceName]));
 
         $this->setResample($resource, $isFlip);
 
