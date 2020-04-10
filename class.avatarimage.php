@@ -20,7 +20,7 @@ define("LITE_RECOLOR_FUNCTION", false);
 // Use function fast processing at color subtraction.
 // processing speed improves, but there is little difference from the real color.
 
-define("PATH_RESOURCE", dirname(__FILE__) . "/output/");
+define("PATH_RESOURCE", dirname(__FILE__) . "/resource/");
 
 define('IMAGE_CANVAS_RESIZE_LEFT', 0);
 define('IMAGE_CANVAS_RESIZE_TOP', 1);
@@ -159,11 +159,11 @@ class AvatarImage
 
             }
 
-            if (!array_key_exists("hd", $this->figure)) {
+            if (!array_key_exists("hd", $this->figure) && !$this->Trim) {
                 $this->figure["hd"] = array("type" => "hd", "id" => "180", "color" => array(0, 0));
             }
 
-            if (!array_key_exists("lg", $this->figure)) {
+            if (!array_key_exists("lg", $this->figure) && !$this->Trim) {
                 $this->figure["lg"] = array("type" => "lg", "id" => "270", "color" => array(0, 0));
             }
 
@@ -204,7 +204,7 @@ class AvatarImage
                         switch ($this->gesture) {
                             case "spk":
                                 $this->drawAction['speak'] = "lsp";
-                                $this->frame[lsp] = $this->frame[$this->gesture];
+                                $this->frame["lsp"] = $this->frame[$this->gesture];
                                 break;
                             case "eyb":
                                 $this->drawAction['eye'] = "ley";
@@ -379,7 +379,7 @@ class AvatarImage
                     $drawDirection = $this->headDirection;
                 }
                 if ($activeParts['speak'][$type]['active'] && $this->drawAction['speak']) {
-                    $drawAction = $this->drawAction[speak];
+                    $drawAction = $this->drawAction["speak"];
                 }
                 if ($activeParts['gesture'][$type]['active'] && $this->drawAction['gesture'] == "noface") {
                     continue;
