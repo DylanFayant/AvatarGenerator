@@ -241,21 +241,28 @@ class AvatarImage
                 }
             }
 
-            if ($this->drawAction['sit'] == "sit") {
-                if ($this->direction != 0 && $this->direction != 2 && $this->direction != 4 && $this->direction != 6) {
-                    $this->direction = 4;
-                }
+            if($this->drawAction['sit'] == "sit")
+			{
+                if($this->direction == 3) $this->direction = 2;
+                if($this->direction == 5) $this->direction = 4;
+                if($this->direction == 7) $this->direction = 0;
 
-                $this->drawOrder = "sit";
-                if ($this->drawAction['handRight'] == "drk" && $this->direction >= 2 && $this->direction <= 3) {
-                    $this->drawOrder .= ".rh-up";
-                } elseif ($this->drawAction['handLeft'] && $this->direction == 4) {
-                    $this->drawOrder .= ".lh-up";
-                }
-            } elseif ($this->drawAction['body'] == "lay") {
+				if($this->direction >= 2 && $this->direction <= 4)
+				{
+					$this->drawOrder = "sit";
+					if($this->direction >= 2 && $this->direction <= 3)
+					{
+						$this->drawOrder .= ".rh-up";
+					}
+					elseif($this->direction == 4)
+					{
+						$this->drawOrder .= ".rh-up";
+					}
+				}
+			} elseif ($this->drawAction['body'] == "lay") {
                 $this->drawOrder = "lay";
                 if ($this->direction != 2 && $this->direction != 4) {
-                    $this->direction = 4;
+                    $this->direction = 2;
                 }
 
                 $this->headDirection = $this->direction;
@@ -396,9 +403,10 @@ class AvatarImage
                 if ($activeParts['walk'][$type]['active'] && $this->drawAction['wlk']) {
                     $drawAction = $this->drawAction['wlk'];
                 }
-                if ($activeParts['sit'][$type]['active'] && $this->drawAction['sit']) {
-                    $drawAction = $this->drawAction['sit'];
-                }
+                if($activeParts['sit'][$type]['active'] && $this->drawAction['sit'])
+				{
+					$drawAction = $this->drawAction['sit'];
+				}
                 if ($activeParts['handRight'][$type]['active'] && $this->drawAction['handRight']) {
                     $drawAction = $this->drawAction['handRight'];
                 }
@@ -724,11 +732,6 @@ class AvatarImage
 
         if (!isset($this->settings['image'][$uniqueName][$resourceName]) && $action == "std") {
             $resourceName = $this->buildResourceName("spk", $type, $partId, $resDirection, $frame);
-        }
-
-        if (!isset($this->settings['image'][$uniqueName][$resourceName]) && $action != "std") {
-            $action = "std";
-            $resourceName = $this->buildResourceName("std", $type, $partId, $resDirection, $frame);
         }
 
         if (!isset($this->settings['image'][$uniqueName][$resourceName])) {
